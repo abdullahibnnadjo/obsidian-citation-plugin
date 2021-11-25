@@ -172,7 +172,12 @@ export abstract class Entry {
 
   public get note(): string {
     return this._note
-      ?.map((el) => el.replace(/<a\s+href="([^"]+)">([^<]*)<\/a>/g, '[$2]($1)'))
+      ?.map((el) => {
+        return el
+          .replace(/<[/]{0,1}b>/g, '__')
+          .replace(/<[/]{0,1}i>/g, '*')
+          .replace(/<a\s+href="([^"]+)">([^<]*)<\/a>/g, '[$2]($1)');
+      })
       .join('\n\n');
   }
 
